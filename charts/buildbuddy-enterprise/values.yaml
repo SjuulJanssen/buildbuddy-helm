@@ -198,28 +198,19 @@ certmanager:
 ## Either enable mysql here, or use your own data_source connection string
 ## in the config block below.
 mysql:
-  enabled: false
-  mysqlRootPassword: ""
-  mysqlUser: ""
-  mysqlPassword: ""
-  mysqlDatabase: buildbuddy
-
-  resources:
-    requests:
-      cpu: "2"
-      memory: "4Gi"
-
-  configurationFiles:
-    mysql.cnf: |-
-      [mysqld]
-      max_connections=4000
-  repository: mysql
-  imageTag: "8.0.18"
-  # metrics:
-  #   enabled: true
-  #   annotations:
-  #     prometheus.io/scrape: "true"
-  #     prometheus.io/port: "9104"
+  enabled: true
+  image:
+    tag: "8.3"
+  auth:
+    rootPassword: buildbuddy
+    username: buildbuddy
+    password: buildbuddy
+    database: buildbuddy
+  primary:
+    resources:
+      requests:
+        cpu: "2"
+        memory: "4Gi"
 
 redis:
   enabled: false
@@ -395,7 +386,7 @@ extraVolumeMounts: []
 
 ## Container image that is used to ping mysql until it's up.
 initContainerImage:
-  repository: appropriate/curl
+  repository: busybox
   tag: latest
   imagePullPolicy: IfNotPresent
 
