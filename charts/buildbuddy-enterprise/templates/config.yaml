@@ -20,7 +20,7 @@ data:
   {{- end }}
 
   {{- if .Values.clickhouse.enabled }}
-  {{- $_ := set $c.olap_database "data_source" (print "clickhouse://" .Values.clickhouse.auth.username ":" .Values.clickhouse.auth.password "@" .Release.Name "-clickhouse:9000/") }}
+  {{- $_ := set $c.olap_database "data_source" (print "clickhouse://" .Values.clickhouse.auth.username ":" .Values.clickhouse.auth.password "@" .Release.Name "-clickhouse:9000/" .Values.clickhouse.auth.database) }}
   {{- end }}
 
   {{- if .Values.mysql.enabled }}

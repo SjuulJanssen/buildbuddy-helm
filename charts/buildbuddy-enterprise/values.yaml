@@ -202,14 +202,20 @@ clickhouse:
   auth:
     username: buildbuddy
     password: buildbuddy
+    database: buildbuddy
   resources:
     requests:
       cpu: "1"
       memory: "1Gi"
-  shards: 1
-  replicaCount: 1
+  # Initialize a database for buildbuddy.
+  # This is needed because the bitnami Clickhouse image does not have support
+  # for CLICKHOUSE_DB variable.
+  initdbScriptsSecret: init-clickhouse-database
+  # Run a single instance of Clickhouse
   zookeeper:
     enabled: false
+  shards: 1
+  replicaCount: 1
 
 ## Either enable mysql here, or use your own data_source connection string
 ## in the config block below.
